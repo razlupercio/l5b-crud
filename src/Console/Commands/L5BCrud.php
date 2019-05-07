@@ -102,6 +102,32 @@ class L5BCrud extends Command
             $this->view($name, '/includes/sidebar-' . str_plural($name), 'make-views-sidebar.stub');
 
             $this->label($name, $name, 'make-backend-labels.stub');
+
+            if ($this->option('frontend')) {
+                $this->frontend_controller($name, ucfirst(camel_case($name)) . "Controller", 'make-frontend-controller.stub');
+                $this->frontend_repository($name, ucfirst(camel_case($name)) . "Repository", 'make-frontend-repository.stub');
+
+                $this->frontend_request($name, "Manage" . ucfirst(camel_case($name)) . "Request", 'make-frontend-manage-request.stub');
+                $this->frontend_request($name, "Store"  . ucfirst(camel_case($name)) . "Request", 'make-frontend-store-request.stub');
+                $this->frontend_request($name, "Update" . ucfirst(camel_case($name)) . "Request", 'make-frontend-update-request.stub');
+
+                $this->frontend_event($name, ucfirst(camel_case($name)) . "Created", 'make-frontend-event-created.stub');
+                $this->frontend_event($name, ucfirst(camel_case($name)) . "Updated", 'make-frontend-event-updated.stub');
+                $this->frontend_event($name, ucfirst(camel_case($name)) . "Deleted", 'make-frontend-event-deleted.stub');
+
+                $this->frontend_listener($name, ucfirst(camel_case($name)) . "EventListener", 'make-frontend-listener.stub');
+
+                $this->frontend_routes($name, str_plural($name), 'make-frontend-routes.stub');
+
+                $this->frontend_view($name, 'index', 'make-frontend-views-index.stub');
+                $this->frontend_view($name, 'create', 'make-frontend-views-create.stub');
+                $this->frontend_view($name, 'edit', 'make-frontend-views-edit.stub');
+                $this->frontend_view($name, 'show', 'make-frontend-views-show.stub');
+                $this->frontend_view($name, 'deleted', 'make-frontend-views-deleted.stub');
+                $this->frontend_view($name, '/includes/header-buttons', 'make-frontend-views-header-buttons.stub');
+
+                $this->frontend_label($name, $name, 'make-frontend-labels.stub');
+            }
         }
         if ($this->option('namespace')) {
             $namespace = ucfirst($this->option('namespace'));
@@ -162,32 +188,32 @@ class L5BCrud extends Command
             $this->view($name, '/includes/sidebar-' . str_plural($name), 'make-ns-views-sidebar.stub', $namespace);
 
             $this->label($name, $name, 'make-ns-backend-labels.stub', $namespace);
-        }
 
-        if ($this->option('frontend')) {
-            $this->frontend_controller($name, ucfirst(camel_case($name)) . "Controller", 'make-frontend-controller.stub');
-            $this->frontend_repository($name, ucfirst(camel_case($name)) . "Repository", 'make-frontend-repository.stub');
+            if ($this->option('frontend')) {
+                $this->frontend_controller($name, ucfirst(camel_case($name)) . "Controller", 'make-ns-frontend-controller.stub', $namespace);
+                $this->frontend_repository($name, ucfirst(camel_case($name)) . "Repository", 'make-ns-frontend-repository.stub', $namespace);
 
-            $this->frontend_request($name, "Manage" . ucfirst(camel_case($name)) . "Request", 'make-frontend-manage-request.stub');
-            $this->frontend_request($name, "Store"  . ucfirst(camel_case($name)) . "Request", 'make-frontend-store-request.stub');
-            $this->frontend_request($name, "Update" . ucfirst(camel_case($name)) . "Request", 'make-frontend-update-request.stub');
+                $this->frontend_request($name, "Manage" . ucfirst(camel_case($name)) . "Request", 'make-ns-frontend-manage-request.stub', $namespace);
+                $this->frontend_request($name, "Store"  . ucfirst(camel_case($name)) . "Request", 'make-ns-frontend-store-request.stub', $namespace);
+                $this->frontend_request($name, "Update" . ucfirst(camel_case($name)) . "Request", 'make-ns-frontend-update-request.stub', $namespace);
 
-            $this->frontend_event($name, ucfirst(camel_case($name)) . "Created", 'make-frontend-event-created.stub');
-            $this->frontend_event($name, ucfirst(camel_case($name)) . "Updated", 'make-frontend-event-updated.stub');
-            $this->frontend_event($name, ucfirst(camel_case($name)) . "Deleted", 'make-frontend-event-deleted.stub');
+                $this->frontend_event($name, ucfirst(camel_case($name)) . "Created", 'make-ns-frontend-event-created.stub', $namespace);
+                $this->frontend_event($name, ucfirst(camel_case($name)) . "Updated", 'make-ns-frontend-event-updated.stub', $namespace);
+                $this->frontend_event($name, ucfirst(camel_case($name)) . "Deleted", 'make-ns-frontend-event-deleted.stub', $namespace);
 
-            $this->frontend_listener($name, ucfirst(camel_case($name)) . "EventListener", 'make-frontend-listener.stub');
+                $this->frontend_listener($name, ucfirst(camel_case($name)) . "EventListener", 'make-ns-frontend-listener.stub', $namespace);
 
-            $this->frontend_routes($name, str_plural($name), 'make-frontend-routes.stub');
+                $this->frontend_routes($name, str_plural($name), 'make-ns-frontend-routes.stub', $namespace);
 
-            $this->frontend_view($name, 'index', 'make-frontend-views-index.stub');
-            $this->frontend_view($name, 'create', 'make-frontend-views-create.stub');
-            $this->frontend_view($name, 'edit', 'make-frontend-views-edit.stub');
-            $this->frontend_view($name, 'show', 'make-frontend-views-show.stub');
-            $this->frontend_view($name, 'deleted', 'make-frontend-views-deleted.stub');
-            $this->frontend_view($name, '/includes/header-buttons', 'make-frontend-views-header-buttons.stub');
+                $this->frontend_view($name, 'index', 'make-ns-frontend-views-index.stub', $namespace);
+                $this->frontend_view($name, 'create', 'make-ns-frontend-views-create.stub', $namespace);
+                $this->frontend_view($name, 'edit', 'make-ns-frontend-views-edit.stub', $namespace);
+                $this->frontend_view($name, 'show', 'make-ns-frontend-views-show.stub', $namespace);
+                $this->frontend_view($name, 'deleted', 'make-ns-frontend-views-deleted.stub', $namespace);
+                $this->frontend_view($name, '/includes/header-buttons', 'make-ns-frontend-views-header-buttons.stub', $namespace);
 
-            $this->frontend_label($name, $name, 'make-frontend-labels.stub');
+                $this->frontend_label($name, $name, 'make-ns-frontend-labels.stub', $namespace);
+            }
         }
     }
 
