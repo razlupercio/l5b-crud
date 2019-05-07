@@ -10,35 +10,35 @@ use Illuminate\Console\Command;
 class L5BCrud extends Command
 {
     /**
-    * The name and signature of the console command.
-    *
-    * @var string
-    */
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
     protected $signature = 'l5b:crud {name} {--m|migrate} {--s|namespace=} {--f|field=title} {--frontend} {--force}';
 
     /**
-    * The console command description.
-    *
-    * @var string
-    */
+     * The console command description.
+     *
+     * @var string
+     */
     protected $description = 'Create a complete CRUD structure for Laravel 5 Boilerplate Backend';
 
     public $doforce;
     /**
-    * Create a new command instance.
-    *
-    * @return void
-    */
+     * Create a new command instance.
+     *
+     * @return void
+     */
     public function __construct()
     {
         parent::__construct();
     }
 
     /**
-    * Execute the console command.
-    *
-    * @return mixed
-    */
+     * Execute the console command.
+     *
+     * @return mixed
+     */
     public function handle()
     {
 
@@ -76,7 +76,7 @@ class L5BCrud extends Command
             $this->listener($name, ucfirst(camel_case($name)) . "EventListener", 'make-listener.stub');
 
             // Create Migration "YYYY_MM_DD_HHMMSS_create_names_table.php"
-            $this->migration($name, date('Y_m_d_His_') . "create_" . str_plural($name)."_table", 'make-migration.stub');
+            $this->migration($name, date('Y_m_d_His_') . "create_" . str_plural($name) . "_table", 'make-migration.stub');
 
             // Create Routes "names.php"
             $this->routes($name, str_plural($name), 'make-routes.stub');
@@ -99,7 +99,7 @@ class L5BCrud extends Command
             $this->view($name, 'deleted', 'make-views-deleted.stub');
             $this->view($name, '/includes/breadcrumb-links', 'make-views-breadcrumb-links.stub');
             $this->view($name, '/includes/header-buttons', 'make-views-header-buttons.stub');
-            $this->view($name, '/includes/sidebar-'. str_plural($name), 'make-views-sidebar.stub');
+            $this->view($name, '/includes/sidebar-' . str_plural($name), 'make-views-sidebar.stub');
 
             $this->label($name, $name, 'make-backend-labels.stub');
         }
@@ -136,7 +136,7 @@ class L5BCrud extends Command
             $this->listener($name, ucfirst(camel_case($name)) . "EventListener", 'make-ns-listener.stub', $namespace);
 
             // Create Migration "YYYY_MM_DD_HHMMSS_create_names_table.php"
-            $this->migration($name, date('Y_m_d_His_') . "create_" . str_plural($name)."_table", 'make-ns-migration.stub', $namespace);
+            $this->migration($name, date('Y_m_d_His_') . "create_" . str_plural($name) . "_table", 'make-ns-migration.stub', $namespace);
 
             // Create Routes "names.php"
             $this->routes($name, str_plural($name), 'make-ns-routes.stub', $namespace);
@@ -159,7 +159,7 @@ class L5BCrud extends Command
             $this->view($name, 'deleted', 'make-ns-views-deleted.stub', $namespace);
             $this->view($name, '/includes/breadcrumb-links', 'make-ns-views-breadcrumb-links.stub', $namespace);
             $this->view($name, '/includes/header-buttons', 'make-ns-views-header-buttons.stub', $namespace);
-            $this->view($name, '/includes/sidebar-'. str_plural($name), 'make-ns-views-sidebar.stub', $namespace);
+            $this->view($name, '/includes/sidebar-' . str_plural($name), 'make-ns-views-sidebar.stub', $namespace);
 
             $this->label($name, $name, 'make-ns-backend-labels.stub', $namespace);
         }
@@ -309,12 +309,12 @@ class L5BCrud extends Command
     {
         $stubParams = [
             'name'                  => $name,
-            'ns'                => ucfirst($namespace),
+            'ns'                    => ucfirst($namespace),
             'stub'                  => __DIR__ . '/Stubs/' . $stub,
             'field'                 => $this->option('field'),
             'namespace'             => '\Http\Requests\Backend\\' . ($namespace ? ucfirst($namespace) . '\\' . ucfirst(camel_case($key)) : ucfirst(camel_case($key))),
             'model'                 => ucfirst(camel_case($key)),
-            '--force'           => $this->hasOption('force') ? $this->option('force') : false,
+            '--force'               => $this->hasOption('force') ? $this->option('force') : false,
         ];
 
         Artisan::call('l5b:stub', $stubParams);
@@ -379,7 +379,7 @@ class L5BCrud extends Command
             'route'                 => ($namespace ? str_plural(strtolower($namespace)) . '.' . str_plural($key) : str_plural($key)),
             '--force'               => $this->hasOption('force') ? $this->option('force') : false,
         ];
-        
+
         Artisan::call('l5b:stub', $stubParams);
         $this->line('Breadcrumbs ' . $stubParams['name'] . Artisan::output());
 
@@ -490,7 +490,7 @@ class L5BCrud extends Command
             'name'              => $name,
             'ns'                => ucfirst($namespace),
             'stub'              => __DIR__ . '/Stubs/' . $stub,
-            'namespace'         => '\Listeners\Frontend\\' . ucfirst(camel_case($key)),
+            'namespace'         => '\Listeners\Frontend\\' . ($namespace ? ucfirst($namespace) . '\\' . ucfirst(camel_case($key)) : ucfirst(camel_case($key))),
             'event'             => ucfirst(camel_case($key)),
             'field'             => $this->option('field'),
             'model'             => ucfirst(camel_case($key)),
@@ -509,7 +509,7 @@ class L5BCrud extends Command
             'ns'                => ucfirst($namespace),
             'stub'                  => __DIR__ . '/Stubs/' . $stub,
             'field'                 => $this->option('field'),
-            'namespace'             => '\Repositories\Frontend\\' . ucfirst(camel_case($key)),
+            'namespace'             => '\Repositories\Frontend\\' . ($namespace ? ucfirst($namespace) . '\\' . ucfirst(camel_case($key)) : ucfirst(camel_case($key))),
             'model'                 => ucfirst(camel_case($key)),
             'repository'            => ucfirst(camel_case($key)) . "Repository",
             'variable'              => $key,
@@ -525,12 +525,12 @@ class L5BCrud extends Command
     {
         $stubParams = [
             'name'                  => $name,
-            'ns'                => ucfirst($namespace),
+            'ns'                    => ucfirst($namespace),
             'stub'                  => __DIR__ . '/Stubs/' . $stub,
             'field'                 => $this->option('field'),
-            'namespace'             => '\Http\Requests\Frontend\\' . ucfirst(camel_case($key)),
+            'namespace'             => '\Http\Requests\Frontend\\' . ($namespace ? ucfirst($namespace) . '\\' . ucfirst(camel_case($key)) : ucfirst(camel_case($key))),
             'model'                 => ucfirst(camel_case($key)),
-            '--force'           => $this->hasOption('force') ? $this->option('force') : false,
+            '--force'               => $this->hasOption('force') ? $this->option('force') : false,
         ];
 
         Artisan::call('l5b:stub', $stubParams);
@@ -540,14 +540,15 @@ class L5BCrud extends Command
     {
         $stubParams = [
             'name'                  => str_replace('_', '', $name),
-            'ns'                => ucfirst($namespace),
+            'ns'                    => ucfirst($namespace),
             'stub'                  => __DIR__ . '/Stubs/' . $stub,
-            'namespace'             => '\..\routes\frontend',
+            'namespace'             => '\..\routes\frontend' . ($namespace ? '\\' . strtolower($namespace) : ''),
             'controller'            => ucfirst(camel_case($key)) . "Controller",
             'model'                 => ucfirst(camel_case($key)),
-            'route'                 => str_plural($key),
+            'route'                 => ($namespace ? str_plural(strtolower($namespace)) . '.' . str_plural($key) : str_plural($key)),
+            'url'                   => ($namespace ? str_plural(strtolower($namespace)) . '/' . str_plural($key) : str_plural($key)),
             'variable'              => $key,
-            '--force'           => $this->hasOption('force') ? $this->option('force') : false,
+            '--force'               => $this->hasOption('force') ? $this->option('force') : false,
         ];
 
         Artisan::call('l5b:stub', $stubParams);
@@ -560,11 +561,12 @@ class L5BCrud extends Command
             'name'                  => $name . ".blade",
             'ns'                => ucfirst($namespace),
             'stub'                  => __DIR__ . '/Stubs/' . $stub,
-            'namespace'             => '\..\resources\views\frontend' . '\\' . $key,
+            'namespace'             => '\..\resources\views\frontend' . '\\' . ($namespace ? strtolower($namespace) . '\\' . $key : $key),
             'label'                 => str_plural($key),
             'array'                 => camel_case(str_plural($key)),
             'field'                 => $this->option('field'),
-            'route'                 => str_plural($key),
+            'route'                 => ($namespace ? str_plural(strtolower($namespace)) . '.' . str_plural($key) : str_plural($key)),
+            'url'                   => ($namespace ? str_plural(strtolower($namespace)) . '/' . str_plural($key) : str_plural($key)),
             'variable'              => camel_case($key),
             'view'                  => ($namespace ? strtolower($namespace) . '.' . $key : $key),
             '--force'           => $this->hasOption('force') ? $this->option('force') : false,
