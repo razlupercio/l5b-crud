@@ -31,6 +31,7 @@ class DummyController extends Controller
     public function __construct(DummyRepository $DummyRepoVariable)
     {
         $this->DummyRepoVariable = $DummyRepoVariable;
+        $this->middleware(['role:admin']);
     }
 
     /**
