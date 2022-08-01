@@ -1,8 +1,8 @@
 {
-  "name": "pqrs/l5b-crud",
-  "description": "CRUD artisan command for rappasoft/laravel-5-boilerplate",
+  "name": "razlupercio/l5b-crud",
+  "description": "CRUD artisan command for rappasoft/laravel-5-boilerplate, this is an attempt to update the pqrs/l5b-crud package",
   "license": "MIT",
-  "homepage": "https://github.com/pqrs/l5b-crud",
+  "homepage": "https://github.com/razlupercio/l5b-crud",
   "authors": [
     {
       "name": "Alvaro Piqueras",
