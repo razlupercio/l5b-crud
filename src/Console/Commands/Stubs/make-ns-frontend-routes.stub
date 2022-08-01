@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\Backend\DummyController;
+use App\Http\Controllers\Frontend\DummyNS\DummyController;
 
-use App\Models\DummyModel;
+use App\Models\DummyNS\DummyModel;
 
 Route::bind('DummyVariable', function ($value) {
 	$DummyVariable = new DummyModel;

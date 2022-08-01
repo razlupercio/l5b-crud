@@ -35,7 +35,6 @@ return [
             'DummyField' => 'DummyField',
         ]
     ],
-
     'sidebar' => [
         'title'  => 'Title',
     ],
@@ -56,5 +55,5 @@ return [
       'all' => 'All',
       'create' => 'Create',
       'deleted' => 'Deleted'
-    ]
+    ]    
 ];
